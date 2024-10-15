@@ -24,4 +24,12 @@ public class Cat {
     public int getAge(){
         return Period.between(dob, LocalDate.now()).getYears();
     }
+
+    public Cat(){}
+
+    public Cat(String name, LocalDate dob, String description){
+        this.name = name;
+        this.dob = dob;
+        this.description = description;
+    }
 }
