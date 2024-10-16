@@ -11,4 +11,5 @@ public interface CatRepository extends JpaRepository<Cat, Long> {
     Cat getCatById(Long id);
     boolean existsCatByName(String name);
     Optional<Cat> findCatByName(String name);
+    void deleteCatByName(String name);
 }

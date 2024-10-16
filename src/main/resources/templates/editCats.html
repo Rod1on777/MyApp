@@ -14,9 +14,9 @@
         <h1>Editing Cat</h1>
         <div th:each="el : ${cat}">
             <form method="post">
-                <input type="text" th:value="${el.name}" name="name" placeholder="Enter Cat Name..." class="form-control"><br>
+                <input type="text" th:value="${el.name}" name="name" class="form-control" disabled><br>
                 <input type="date" th:value="${el.dob}" name="dob" class="form-control"><br>
-                <textarea th:value="${el.description}" name="description" placeholder="Enter description..." class="form-control" th:text="${el.full_text}"/><br>
+                <textarea th:value="${el.description}" name="description" placeholder="Enter description..." class="form-control" th:text="${el.description}"/><br>
                 <button type="submit" class="btn btn-success">Update</button>
             </form>
         </div>

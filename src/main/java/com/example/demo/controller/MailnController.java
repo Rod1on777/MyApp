@@ -45,7 +45,7 @@ public class MailnController {
     }
 
     @GetMapping("/catsList/{name}")
-    public String editCat(@PathVariable String name, Model model) {
+    public String findCat(@PathVariable String name, Model model) {
         if(!catRepository.existsCatByName(name)){
             return "redirect:/catsList";
         }
@@ -57,7 +57,42 @@ public class MailnController {
         return "detailsCats";
     }
 
-    @GetMapping("/catsList/{name}/edit"){
-        //todo
+    @GetMapping("/catsList/{name}/edit")
+    public String editCat(@PathVariable String name, Model model){
+        if(!catRepository.existsCatByName(name)){
+            return("redirect:/catsList");
+        }
+        Optional<Cat> cat = catRepository.findCatByName(name);
+        ArrayList<Cat> res = new ArrayList<>();
+        cat.ifPresent(res::add);
+        model.addAttribute("cat", res);
+        return "editCats";
+    }
+
+    @PostMapping("/catsList/{name}/edit")
+    public String editCats(@PathVariable String name, @RequestParam LocalDate dob, @RequestParam String description){
+        Optional<Cat> res = catRepository.findCatByName(name);
+        Cat cat;
+        if(res.isPresent()){
+            cat = res.get();
+        }else{
+            System.out.println("Cat is null");
+            cat = null;
+        }
+        cat.setDob(dob);
+        cat.setDescription(description);
+        catRepository.save(cat);
+        return "redirect:/catsList";
+    }
+
+    @PostMapping("/catsList/{name}/remove")
+    public String removeCat(@PathVariable String name, Model model){
+        Optional<Cat> cat = catRepository.findCatByName(name);
+        if(cat.isPresent()){
+            catRepository.delete(cat.get());
+            return "redirect:/catsList";
+        }
+        System.out.println("Cat not found");
+        return "redirect:/error";
     }
 }

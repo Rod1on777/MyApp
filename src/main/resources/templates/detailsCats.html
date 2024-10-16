@@ -16,7 +16,7 @@
             <h3 th:text="${el.name}"></h3>
             <h3 th:text="${el.dob}"></h3>
             <h3 th:text="${el.description}"></h3>
-            <a th:href="'/catsList' + ${el.name} + '/edit'" class="btn btn-warning">Edit</a>
+            <a th:href="'/catsList/' + ${el.name} + '/edit'" class="btn btn-warning">Edit</a>
             <form th:action="'/catsList/' + ${el.name} + '/remove'" method="post">
                 <button class="btn btn-warning" type="submit">Delete</button>
             </form>
